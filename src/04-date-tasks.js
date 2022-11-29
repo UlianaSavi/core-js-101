@@ -19,8 +19,8 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  return Date.parse(value);
 }
 
 /**
@@ -34,8 +34,9 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  const date = new Date(value);
+  return date;
 }
 
 
@@ -53,8 +54,9 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getFullYear();
+  return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
 }
 
 
@@ -73,8 +75,16 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const rez = endDate - startDate;
+  // eslint-disable-next-line no-mixed-operators
+  const hour = Math.trunc(rez / 3600000 % 100).toString().padStart(2, '0');
+  // eslint-disable-next-line no-mixed-operators
+  const min = Math.trunc(rez / 60000 % 60).toString().padStart(2, '0');
+  // eslint-disable-next-line no-mixed-operators
+  const sec = Math.trunc(rez / 1000 % 60).toString().padStart(2, '0');
+  const ms = Math.trunc(rez % 1000).toString().padStart(3, '0');
+  return (`${hour}:${min}:${sec}.${ms}`);
 }
 
 
@@ -95,6 +105,17 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(/* date */) {
+  // const hour = date.getUTCHours();
+  // const min = date.getMinutes();
+  // console.log('hour: ', hour, 'min: ', min);
+  // const minΣ = 60 * hour + min;
+  // console.log('minΣ: ', minΣ);
+  // const minAngle = 6 * min;
+  // const hourAngle = 0.5 * minΣ;
+  // console.log('minAngle: ', minAngle);
+  // console.log('hourAngle: ', hourAngle);
+  // console.log('result: ', hourAngle - minAngle);
+  // return hourAngle - minAngle;
   throw new Error('Not implemented');
 }
 

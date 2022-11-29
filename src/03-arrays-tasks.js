@@ -449,12 +449,17 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  // console.log(arr);
-  // const sortCity = arr.sort((a, b) => (a.city > b.city || a.country > b.country ? 1 : -1));
-  // console.log(sortCity);
-  // return sortCity;
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  const sortCity = Object.values(arr.sort((a, b) => (a.country > b.country ? 1 : -1))
+    .reduce((acc, val) => {
+      if (!acc[val.country]) {
+        acc[val.country] = [val];
+        return acc;
+      }
+      acc[val.country] = [...acc[val.country], val];
+      return acc;
+    }, [])).map((item) => item.sort((a, b) => (a.city > b.city ? 1 : -1))).flat();
+  return sortCity;
 }
 
 /**
@@ -547,8 +552,22 @@ function distinct(arr) {
  *    'Poland' => ['Lodz']
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+  const items = array.reduce((acc, val) => {
+    if (!acc[keySelector(val)]) {
+      acc[keySelector(val)] = [valueSelector(val)];
+      return acc;
+    }
+    acc[keySelector(val)] = [...acc[keySelector(val)], valueSelector(val)];
+    return acc;
+  }, {});
+
+  Object.entries(items).map(([key, val]) => {
+    map.set(key, val);
+    return null;
+  });
+  return map;
 }
 
 
@@ -565,8 +584,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map(childrenSelector).flat();
 }
 
 
@@ -582,19 +601,14 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  // if (indexes.length === 2) {
-  //   console.log('here1', indexes);
-  //   return arr[indexes[0]][indexes[1]];
-  // }
-  // if (indexes.length > 2) {
-  //   console.log('here2', indexes);
-  //   console.log(arr);
-  //   return arr[indexes[0]][indexes[1][indexes[2]]];
-  // }
-  // console.log('here3', indexes);
-  // return arr[indexes[0]];
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((acc, idx) => {
+    if (acc === undefined) {
+      return arr[idx];
+    }
+
+    return acc[idx];
+  }, undefined);
 }
 
 
