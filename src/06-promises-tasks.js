@@ -29,9 +29,17 @@
  *                                                    //  Ask her again.';
  */
 function willYouMarryMe(/* isPositiveAnswer */) {
+  // console.log(isPositiveAnswer);
+  // return new Promise((resolve, reject) => {
+  //   if (typeof isPositiveAnswer !== 'boolean') {
+  //     reject(new Error('Wrong parameter is passed! Ask her again.'));
+  //   } if (isPositiveAnswer) {
+  //     resolve('Hooray!!! She said "Yes"!');
+  //   }
+  //   reject(new Error('Oh no, she said "No"'));
+  // });
   throw new Error('Not implemented');
 }
-
 
 /**
  * Return Promise object that should be resolved with array containing plain values.

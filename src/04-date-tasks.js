@@ -105,8 +105,10 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(/* date */) {
+  // const test = new Date(Date.UTC(2016, 3, 5, 15, 0));
+  // console.log(test.getUTCHours());
   // const hour = date.getUTCHours();
-  // const min = date.getMinutes();
+  // const min = date.getUTCMinutes();
   // console.log('hour: ', hour, 'min: ', min);
   // const minΣ = 60 * hour + min;
   // console.log('minΣ: ', minΣ);
@@ -114,8 +116,10 @@ function angleBetweenClockHands(/* date */) {
   // const hourAngle = 0.5 * minΣ;
   // console.log('minAngle: ', minAngle);
   // console.log('hourAngle: ', hourAngle);
-  // console.log('result: ', hourAngle - minAngle);
-  // return hourAngle - minAngle;
+  // // eslint-disable-next-line no-mixed-operators
+  // console.log('result: ', (hourAngle - minAngle) * Math.PI / 180);
+  // // eslint-disable-next-line no-mixed-operators
+  // return (hourAngle - minAngle) * Math.PI / 180;
   throw new Error('Not implemented');
 }
 
